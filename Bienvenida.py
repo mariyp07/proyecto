@@ -1,3 +1,8 @@
+#########################################################
+#     Predicción de la Tasa de Inflación Anual de US    #
+#     Realizado por: Mariela Perdomo                    #
+#########################################################
+
 #####################
 #    Bibliotecas:   #
 #####################
@@ -5,20 +10,19 @@
 import streamlit as st
 import pydeck as pdk
 import time
-#from streamlit_extras.app_logo import add_logo 
 
-
+####################################
+#    Configuración de Streamlit#   #
+####################################
 
 st.set_page_config(
     page_title="Welcome!",
     page_icon="📈",
 )
 
-# add logo
-#add_logo("logo4.jpg", height=103)
 
 st.write("# Predicción de la Tasa de Inflación Anual de US 📈")
-st.divider()  # 👈 Another horizontal rule
+st.divider()  # 👈 Línea horizontal
 
 
 #US Map: 

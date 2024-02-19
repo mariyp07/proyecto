@@ -1,3 +1,8 @@
+#########################################################
+#     Predicción de la Tasa de Inflación Anual de US    #
+#     Realizado por: Mariela Perdomo                    #
+#########################################################
+
 #####################
 #    Bibliotecas:   #
 #####################
@@ -12,20 +17,12 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
-
 pd.options.mode.chained_assignment = None
 tf.random.set_seed(0)
 import time
 from time import sleep
 import datetime
 from streamlit_lottie import st_lottie
-
-###################################
-#   Configuraciones de Streamlit  #
-###################################
-
-#st.set_page_config(page_title="Gráficos", page_icon="📈")
-
 
 #######################
 #      Funciones      #
@@ -68,8 +65,7 @@ def indexdate(data):
 
 #Determinando la Tasa de Inflación Anual de US
 def inflationrate(data,start_date,end_date):
-    data2 = data.loc[start_date:end_date].pct_change(12)*100
-    #print(data2)
+    data2 = data.loc[start_date:end_date].pct_change(12)*100 
     return data2
 
 # Seleccionando la data que no contiene NaN
@@ -87,22 +83,19 @@ def transformation3(data2):
     datainflation = data2[['Inflation']]
     return datainflation
 
-
 # Creando un gráfico de línea interactivo
 def graphCPI(datainflation):
 
-    # Define the Lottie animation URL
+    # Definiendo la animación de Lottie URL
     lottie_animation_url = "https://lottie.host/89f1f8df-aa47-4771-9441-91da251470e2/qGrHDGTqFH.json"
-
-    #lottie_animation_url="https://lottiefiles.com/animations/strategy-VfNuqx5xPf"
 
     #Headers:
     st.markdown("# Gráficos y predicción de la :blue[Tasa de Inflación Anual de US]")
 
-    # Display the Lottie animation using st_lottie
+    # Mostrando la animación de Lottie usando st_lottie
     st_lottie(lottie_animation_url,height=200)
 
-    st.divider()  # 👈 Another horizontal rule
+    st.divider()  # 👈 Línea horizontal
     
     st.subheader('1. Gráfico de la Tasa de Inflación Anual de US:')
 
@@ -130,17 +123,17 @@ def reshapeinflation(datainflation):
     y = y.values.reshape(-1, 1)
     return (y)
 
-# Scale the data
+# Escalando la data
 def scalerInflation(y):
     scaler = MinMaxScaler(feature_range=(0, 1))
     scaler = scaler.fit(y)
     y = scaler.transform(y)
     return (y, scaler) 
 
-# Generate the input and output sequences
+# Generando los input y los output de las sequencias
 def sequences(y):
-    n_lookback = 60  # length of input sequences (lookback period)
-    n_forecast = 6 # length of output sequences (forecast period)
+    n_lookback = 60  # longitud del input  de las sequencias (lookback period)
+    n_forecast = 6 # longitud del output de las sequencias (forecast period)
     
     X = []
     Y = []
@@ -154,14 +147,14 @@ def sequences(y):
 
     return (X,Y, n_lookback, n_forecast)
 
-# Fit the model and forecast
+# Ajuste del modelo y predicción
 
 def fitmodel(X,Y, n_lookback, n_forecast):
-    # Create a text element and let the reader know the data is loading.
-   
+    
+    # Creando un texto y una barra para saber cuando la data o el gráfico está cargado.   
     st.sidebar.markdown("# Modelo y Predicción:")
 
-    st.divider()  # 👈 Another horizontal rule
+    st.divider()  # 👈 Línea Horizontal
 
     st.subheader('2. Creando el modelo y generando la predicción 👀...')
 
@@ -194,7 +187,7 @@ def forecast(y, model, n_lookback, scaler):
     Y_ = scaler.inverse_transform(Y_) 
     return (X_, Y_)
 
-# Organize the results in a data frame
+# Organizando los resultados en un dataframe
 
 def datapast(datainflation):
     data_past = datainflation[['Inflation']].reset_index()
@@ -233,9 +226,8 @@ def finalprediction(data_future):
     forecast2.set_index('Date', inplace=True)
 
     st.write(
-    """_Predicción de la Tasa Anual de la Inflación de US_:""")
-    
-    #return (forecast2)
+    """_Predicción de la Tasa Anual de la Inflación de US_:""")    
+ 
     st.table(forecast2['Forecast'])
 
 # Creando un gráfico de línea interactivo
@@ -246,7 +238,7 @@ def graphCPI2(results):
     progress_bar3 = st.sidebar.progress(0)
     status_text3 = st.sidebar.empty()
 
-    st.divider()  # 👈 Another horizontal rule
+    st.divider()  # 👈 Línea horizontal
 
     st.subheader('3. Gráfico de la data histórica y la predicción de la Tasa de Inflación Anual de US')
 
@@ -291,8 +283,7 @@ def prediction(start_date, end_date):
     results = resultfinal(data_past,data_future)
     forecast2 = finalprediction(data_future)
     graph2=graphCPI2(results)
-    
-    
+        
     return (graph1,forecast2,graph2)
       
 
