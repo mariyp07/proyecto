@@ -77,13 +77,13 @@ st.markdown(
 
     🔷 Instalación e importación de las bibliotecas necesarias.
 
-    🔷 Obtención de los datos del CPI a través de la API de la página Bureau of Labor Statistics.
+    🔷 Obtención de los datos del CPI de US, a través de la API de la página [U.S. Bureau of Labor Statistics](https://www.bls.gov/).
 
     🔷 Exploración de los datos para comprender su distribución y características.
 
-    🔷 Normalización de los datos para que sean adecuados para entrenar el modelo LSTM.
+    🔷 Construcción de la Tasa de Inflación Anual de US a partir de los datos del CPI.
 
-    🔷 División de los datos en conjuntos de train y test.
+    🔷 Normalización de los datos para que sean adecuados para entrenar el modelo LSTM.
 
     🔷 Creación de secuencias para el modelo LSTM. 
 
