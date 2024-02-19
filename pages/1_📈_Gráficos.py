@@ -22,11 +22,11 @@ st.set_page_config(page_title="Graficos", page_icon="📈")
 # Sidebar #
 ###########
 
-# Creando un randgo de fecha por defecto
+# Creando un rango de fecha por defecto
 start = datetime.datetime(1913, 1, 1)
 end = datetime.datetime(2023, 11, 1)
 
-# Pregúntandole al usuario la fecha para ejecutar el modelo
+# Preguntándole al usuario la fecha para ejecutar el modelo
 start_date = st.sidebar.date_input('Fecha de inicio:', start, min_value=start, max_value=end)
 end_date = st.sidebar.date_input('Fecha final:', end,  min_value=start, max_value=end)
 
